@@ -1,0 +1,94 @@
+--- selinux-sandbox-2.7/sandbox.init.orig	2017-08-04 15:31:00.000000000 +0200
++++ selinux-sandbox-2.7/sandbox.init	2017-11-20 19:05:49.396431050 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ ## BEGIN INIT INFO
+ # Provides: sandbox
+ # Default-Start: 3 4 5
+@@ -19,50 +19,50 @@
+ #
+ 
+ # Source function library.
+-. /etc/init.d/functions
++. /etc/rc.d/init.d/functions
++
++[ -f /etc/sysconfig/sandbox-init ] && . /etc/sysconfig/sandbox-init
+ 
+ LOCKFILE=/var/lock/subsys/sandbox
+ 
+-base=${0##*/}
++RETVAL=0
+ 
+ start() {
+-	echo -n "Starting sandbox"
+-
+-	[ -f "$LOCKFILE" ] && return 0
+-
+-	touch $LOCKFILE
+-	mount --make-rshared / || return $? 
+-	return 0
++	if [ -f "$LOCKFILE" ]; then
++		msg_already_running "sandbox"
++		return
++	fi
++	msg_starting "sandbox"
++	mount --make-rshared /
++	RETVAL=$? 
++	[ $RETVAL -eq 0 ] && touch "$LOCKFILE"
+ }
+ 
+ stop() {
+-	echo -n "Stopping sandbox"
+-
+-	[ -f "$LOCKFILE" ] || return 1
++	if [ ! -f "$LOCKFILE" ]; then
++		msg_not_running "sandbox"
++		return
++	fi
++	msg_stopping "sandbox"
++	rm -f "$LOCKFILE"
+ }
+ 
+ status() {
+ 	if [ -f "$LOCKFILE" ]; then 
+-	    echo "$base is running"
++	    echo "sandbox is running"
+ 	else
+-	    echo "$base is stopped"
++	    echo "sandbox is stopped"
+ 	fi
+ 	exit 0
+ }
+ 
+ case "$1" in
+-    restart)
+-	start && success || failure
+-	;;
+-
+-    start)
+-	start && success || failure
+-	echo
++    start|restart)
++	start
+ 	;;
+ 
+     stop)
+-	stop && success || failure
+-	echo
++	stop
+ 	;;
+ 
+     status)
+@@ -70,7 +70,9 @@
+ 	;;
+ 
+     *)
+-	echo $"Usage: $0 {start|stop|status|restart}"
+-	exit 3
++	msg_usage "$0 {start|stop|status|restart}"
++	RETVAL=3
+ 	;;
+ esac
++
++exit $RETVAL
