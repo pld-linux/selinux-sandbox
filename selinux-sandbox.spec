@@ -2,23 +2,23 @@
 Summary:	SELinux sandbox utilities
 Summary(pl.UTF-8):	Narzędzia do obsługi piaskownic SELinuksa
 Name:		selinux-sandbox
-Version:	2.8
+Version:	2.9
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0:	https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20180524/%{name}-%{version}.tar.gz
-# Source0-md5:	957f5d0fc7724f93f502d1d632568894
+Source0:	https://github.com/SELinuxProject/selinux/releases/download/20190315/%{name}-%{version}.tar.gz
+# Source0-md5:	3482b8fa6648160e97ba48ad26f84e7d
 Patch0:		%{name}-init.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	libcap-ng-devel
-BuildRequires:	libselinux-devel >= 2.8
+BuildRequires:	libselinux-devel >= 2.9
 BuildRequires:	rpm-pythonprov
-Requires:	libselinux >= 2.7
+Requires:	libselinux >= 2.9
 # uses "policycoreutils" translations domain
-Requires:	policycoreutils >= 2.8
-Requires:	python-selinux >= 2.8
-Requires:	python-sepolicy >= 2.8
+Requires:	policycoreutils >= 2.9
+Requires:	python3-selinux >= 2.9
+Requires:	python3-sepolicy >= 2.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -82,3 +82,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/sandbox.5*
 %{_mandir}/man8/sandbox.8*
 %{_mandir}/man8/seunshare.8*
+%lang(ru) %{_mandir}/ru/man5/sandbox.5*
+%lang(ru) %{_mandir}/ru/man8/sandbox.8*
+%lang(ru) %{_mandir}/ru/man8/seunshare.8*
