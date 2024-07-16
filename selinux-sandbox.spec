@@ -2,23 +2,23 @@
 Summary:	SELinux sandbox utilities
 Summary(pl.UTF-8):	Narzędzia do obsługi piaskownic SELinuksa
 Name:		selinux-sandbox
-Version:	3.6
+Version:	3.7
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0:	https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ae7115f2478d8b718f3f478c861c0169
+# Source0-md5:	85f3f42c87b8919cf8a9b008f428f14c
 Patch0:		%{name}-init.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	libcap-ng-devel
-BuildRequires:	libselinux-devel >= 3.6
+BuildRequires:	libselinux-devel >= 3.7
 BuildRequires:	rpm-pythonprov
-Requires:	libselinux >= 3.6
+Requires:	libselinux >= 3.7
 # uses "policycoreutils" translations domain
-Requires:	policycoreutils >= 3.6
-Requires:	python3-selinux >= 3.6
-Requires:	python3-sepolicy >= 3.6
+Requires:	policycoreutils >= 3.7
+Requires:	python3-selinux >= 3.7
+Requires:	python3-sepolicy >= 3.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
