@@ -1,24 +1,25 @@
 # TODO: install and package init script?
+%define	selinux_ver	3.8
 Summary:	SELinux sandbox utilities
 Summary(pl.UTF-8):	Narzędzia do obsługi piaskownic SELinuksa
 Name:		selinux-sandbox
-Version:	3.7
+Version:	3.8
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0:	https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	85f3f42c87b8919cf8a9b008f428f14c
+# Source0-md5:	59452fc4a05e08e36450efac23e575b1
 Patch0:		%{name}-init.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	libcap-ng-devel
-BuildRequires:	libselinux-devel >= 3.7
+BuildRequires:	libselinux-devel >= %{selinux_ver}
 BuildRequires:	rpm-pythonprov
 Requires:	libselinux >= 3.7
 # uses "policycoreutils" translations domain
-Requires:	policycoreutils >= 3.7
-Requires:	python3-selinux >= 3.7
-Requires:	python3-sepolicy >= 3.7
+Requires:	policycoreutils >= %{selinux_ver}
+Requires:	python3-selinux >= %{selinux_ver}
+Requires:	python3-sepolicy >= %{selinux_ver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
