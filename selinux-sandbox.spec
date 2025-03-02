@@ -51,7 +51,7 @@ Ten pakiet zawiera narzędzia do obsługi piaskownic SELinuksa.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 CFLAGS="%{rpmcflags} %{rpmcppflags}" \
