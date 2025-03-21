@@ -3,19 +3,19 @@
 Summary:	SELinux sandbox utilities
 Summary(pl.UTF-8):	Narzędzia do obsługi piaskownic SELinuksa
 Name:		selinux-sandbox
-Version:	3.8
+Version:	3.8.1
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 #Source0Download: https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0:	https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	59452fc4a05e08e36450efac23e575b1
+# Source0-md5:	4591dd7479fb92a0ea43bf80a3c6867f
 Patch0:		%{name}-init.patch
 URL:		https://github.com/SELinuxProject/selinux/wiki
 BuildRequires:	libcap-ng-devel
 BuildRequires:	libselinux-devel >= %{selinux_ver}
 BuildRequires:	rpm-pythonprov
-Requires:	libselinux >= 3.7
+Requires:	libselinux >= %{selinux_ver}
 # uses "policycoreutils" translations domain
 Requires:	policycoreutils >= %{selinux_ver}
 Requires:	python3-selinux >= %{selinux_ver}
@@ -68,10 +68,12 @@ rm -rf $RPM_BUILD_ROOT
 
 #install -Dp sandbox.init $RPM_BUILD_ROOT/etc/rc.d/init.d/sandbox
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/sandbox
 %attr(755,root,root) %{_sbindir}/seunshare
